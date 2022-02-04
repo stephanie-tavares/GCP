@@ -1,0 +1,10 @@
+for PROJECT in $(\
+  gcloud projects list \
+  --format="value(projectId)" )
+do
+  printf "%s:\n" ${PROJECT}
+  gcloud projects get-iam-policy ${PROJECT}  \ //Where we can use --sort-by=[anything_you_want]
+  --flatten="bindings[].members[]" \
+  --format="value(bindings.members)"
+  printf "\n"
+done
